@@ -5,7 +5,8 @@ import 'controllers/theme_controller.dart';
 import 'pages/home_page.dart';
 
 class WordleApp extends StatelessWidget {
-  const WordleApp({Key? key}) : super(key: key);
+  // CORREÇÃO: Usando a sintaxe moderna 'super.key'
+  const WordleApp({super.key});
 
   @override
   Widget build(BuildContext context) {

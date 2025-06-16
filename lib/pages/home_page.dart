@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // ... (código existente da animação)
   bool _isVisible = false;
 
   @override
@@ -30,16 +29,20 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         actions: [
-          // NOVO: Botão para trocar o tema
+          // Botão para trocar o tema, agora na AppBar
           IconButton(
             icon: Icon(
-              themeController.themeMode == ThemeMode.dark ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
+              themeController.themeMode == ThemeMode.dark 
+                ? Icons.light_mode_outlined 
+                : Icons.dark_mode_outlined,
             ),
             onPressed: () {
               final newMode = themeController.themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
               context.read<ThemeController>().setThemeMode(newMode);
             },
+            tooltip: "Mudar Tema",
           ),
           const SizedBox(width: 8),
         ],
@@ -47,7 +50,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: AnimatedOpacity(
               opacity: _isVisible ? 1.0 : 0.0,
               duration: const Duration(milliseconds: 700),
@@ -57,25 +60,27 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Letra a Letra',
+                    'LETRA A LETRA',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
-                      fontSize: 42,
+                      fontSize: 48,
                       fontWeight: FontWeight.bold,
                       color: colors.primary,
                     ),
                   ),
                   const SizedBox(height: 80),
-                  // ... (resto dos botões e da página)
                   FilledButton.icon(
                     icon: const Icon(Icons.calendar_today),
-                    label: const Text('Modo Diário'),
+                    label: const Text('DIÁRIO'),
                     onPressed: () => _navigateToGame(context, isDaily: true),
                   ),
                   const SizedBox(height: 20),
-                  FilledButton.tonalIcon(
+                  FilledButton.icon(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: colors.secondary, // Usando a cor de destaque
+                    ),
                     icon: const Icon(Icons.lightbulb_outline),
-                    label: const Text('Modo Treinamento'),
+                    label: const Text('PRATICAR'),
                     onPressed: () => _navigateToGame(context, isDaily: false),
                   ),
                 ],

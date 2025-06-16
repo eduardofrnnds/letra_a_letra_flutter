@@ -7,13 +7,14 @@ class TecladoVirtual extends StatelessWidget {
   final VoidCallback onEnterTapped;
   final Map<String, EstadoLetra> estadosTeclado;
   
+  // CORREÇÃO: Usando a sintaxe moderna 'super.key'
   const TecladoVirtual({
-    Key? key,
+    super.key,
     required this.onKeyTapped,
     required this.onBackspaceTapped,
     required this.onEnterTapped,
     required this.estadosTeclado,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,21 +58,23 @@ class BotaoTeclado extends StatelessWidget {
   final IconData? icon;
   final Function onTap;
 
+  // CORREÇÃO: Usando a sintaxe moderna 'super.key'
   const BotaoTeclado({
-    Key? key,
+    super.key,
     required this.onTap,
     required this.letra,
     this.estado = EstadoLetra.inicial,
     this.flex = 2,
-  }) : label = null, icon = null, super(key: key);
+  }) : label = null, icon = null;
 
+  // CORREÇÃO: Usando a sintaxe moderna 'super.key'
   const BotaoTeclado.special({
-    Key? key,
+    super.key,
     required this.onTap,
     this.label,
     this.icon,
     this.flex = 3,
-  }) : letra = null, estado = null, super(key: key);
+  }) : letra = null, estado = null;
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +85,7 @@ class BotaoTeclado extends StatelessWidget {
     if (letra != null) {
       switch (estado) {
         case EstadoLetra.correto:
+        case EstadoLetra.corretoRepetido:
           corFundo = colors.tertiary;
           corTexto = colors.onTertiary;
           break;
@@ -94,11 +98,11 @@ class BotaoTeclado extends StatelessWidget {
           corTexto = colors.onSurface;
           break;
         default: 
-          corFundo = colors.surfaceVariant;
+          corFundo = colors.surfaceContainerHighest;
           corTexto = colors.onSurfaceVariant;
       }
     } else { 
-      corFundo = colors.surfaceVariant;
+      corFundo = colors.surfaceContainerHighest;
       corTexto = colors.onSurfaceVariant;
     }
 
