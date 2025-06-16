@@ -1,4 +1,5 @@
-Letra a Letra 🇧🇷
+Letra a Letra
+
 Um elegante e viciante jogo de adivinhar palavras, inspirado em sucessos como Wordle e Termo, construído com Flutter. Desafie a sua mente todos os dias com uma nova palavra ou pratique sem limites no modo de treinamento.
 
 ✨ Funcionalidades
