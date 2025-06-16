@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'config/theme/app_theme.dart'; // Este caminho precisa que a estrutura de pastas esteja correta
+import 'package:provider/provider.dart';
+import 'config/theme/app_theme.dart';
+import 'controllers/theme_controller.dart';
 import 'pages/home_page.dart';
 
 class WordleApp extends StatelessWidget {
@@ -7,11 +9,14 @@ class WordleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Consome o ThemeController para obter o tema atual
+    final themeController = context.watch<ThemeController>();
+
     return MaterialApp(
-      title: 'Acerte a Palavra',
+      title: 'Letra a Letra',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: themeController.themeMode,
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
     );

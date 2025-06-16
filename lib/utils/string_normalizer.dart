@@ -1,4 +1,4 @@
-// Mapeamento de caracteres com acento para os seus equivalentes sem acento.
+
 const _accentMap = {
   'À': 'A', 'Á': 'A', 'Â': 'A', 'Ã': 'A', 'Ä': 'A', 'Å': 'A',
   'à': 'a', 'á': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a', 'å': 'a',
@@ -14,8 +14,6 @@ const _accentMap = {
   'Ñ': 'N', 'ñ': 'n',
 };
 
-/// Remove os acentos de uma string.
-/// Exemplo: "RAZÃO" -> "RAZAO"
 String normalizeString(String input) {
   String result = input;
   _accentMap.forEach((key, value) {

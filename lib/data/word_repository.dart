@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import '../utils/string_normalizer.dart'; // Importa o nosso normalizador
+import '../utils/string_normalizer.dart'; 
 
-// Armazena as palavras originais (com acentos)
+
 List<String> palavrasOriginais = [];
 
-// Armazena as palavras normalizadas para a lógica do jogo (sem acentos)
 List<String> palavrasNormalizadas = [];
 
 Future<void> carregarPalavras() async {
@@ -13,7 +12,6 @@ Future<void> carregarPalavras() async {
     final String jsonString = await rootBundle.loadString('assets/palavras.json');
     final List<dynamic> jsonList = jsonDecode(jsonString);
     
-    // Limpa as listas antes de carregar para evitar duplicados
     palavrasOriginais.clear();
     palavrasNormalizadas.clear();
 
@@ -21,7 +19,6 @@ Future<void> carregarPalavras() async {
       final palavraOriginal = item.toString().trim().toUpperCase();
       if (palavraOriginal.isNotEmpty) {
         palavrasOriginais.add(palavraOriginal);
-        // Adiciona a versão sem acentos à lista de lógica
         palavrasNormalizadas.add(normalizeString(palavraOriginal));
       }
     }

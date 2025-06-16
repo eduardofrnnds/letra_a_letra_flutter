@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Paleta de cores para o tema claro
 const _lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF006399),
@@ -35,7 +34,6 @@ const _lightColorScheme = ColorScheme(
   inversePrimary: Color(0xFF96CCFF),
 );
 
-// Paleta de cores para o tema escuro
 const _darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFF96CCFF),

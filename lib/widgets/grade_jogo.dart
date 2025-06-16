@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../models/estado_letra.dart';
 
-// Widget para a grade completa do jogo
 class GradeJogo extends StatelessWidget {
   final List<List<String>> grade;
   final List<List<EstadoLetra>> estadosGrade;
@@ -56,7 +55,7 @@ class GradeJogo extends StatelessWidget {
   }
 }
 
-// Animação de Flip na CaixaLetra
+
 class CaixaLetra extends StatefulWidget {
   final String letra;
   final EstadoLetra estado;
@@ -88,7 +87,7 @@ class _CaixaLetraState extends State<CaixaLetra> with SingleTickerProviderStateM
   @override
   void didUpdateWidget(CaixaLetra oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Inicia a animação quando a caixa é submetida
+  
     if (widget.foiSubmetida && !oldWidget.foiSubmetida) {
       _controller.forward();
     }

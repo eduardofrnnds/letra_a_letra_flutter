@@ -6,7 +6,6 @@ import '../models/estado_letra.dart';
 import '../utils/string_normalizer.dart';
 
 class JogoController extends ChangeNotifier {
-  // Constantes para as chaves do SharedPreferences
   static const _keyData = 'ultima_data_diario';
   static const _keyPalavra = 'palavra_diario';
   static const _keyTentativas = 'tentativas_diario';
@@ -16,7 +15,7 @@ class JogoController extends ChangeNotifier {
   late String palavraSecretaOriginal;
   final bool isModoDiario;
 
-  // Variáveis de estado
+ 
   final int maxTentativas = 6;
   final int tamanhoPalavra = 5;
   int tentativaAtual = 0;
@@ -32,7 +31,6 @@ class JogoController extends ChangeNotifier {
 
   JogoController({required this.isModoDiario});
 
-  // Método de inicialização assíncrono
   Future<void> inicializar() async {
     if (isModoDiario) {
       await _carregarOuIniciarJogoDiario();
@@ -47,18 +45,17 @@ class JogoController extends ChangeNotifier {
     final ultimaDataSalva = prefs.getString(_keyData);
 
     if (hoje == ultimaDataSalva) {
-      // Já jogou hoje, vamos carregar o estado salvo
+    
       _jogoJaFoiJogadoHoje = true;
       await _reconstruirJogoSalvo(prefs);
     } else {
-      // Novo dia ou primeira vez, inicia um novo jogo
+    
       _jogoJaFoiJogadoHoje = false;
       _iniciarNovoJogo(ehDiario: true);
     }
     notifyListeners();
   }
 
-  // Método para reconstruir o estado do jogo a partir dos dados salvos
   Future<void> _reconstruirJogoSalvo(SharedPreferences prefs) async {
     palavraSecretaOriginal = prefs.getString(_keyPalavra) ?? "ERRO";
     palavraSecreta = normalizeString(palavraSecretaOriginal);
@@ -67,22 +64,22 @@ class JogoController extends ChangeNotifier {
     
     _resetarEstadoBase();
 
-    // Recria a grade e os estados do teclado com base nas tentativas salvas
+
     for (final palpite in tentativasSalvas) {
       palpiteAtual = palpite;
       _atualizarGradeComPalpite();
-      submeterPalpite(salvarEstado: false); // Submete sem salvar de novo
+      submeterPalpite(salvarEstado: false);
     }
     
     jogoTerminou = true;
   }
 
-  // Método para salvar o estado do jogo diário
+
   Future<void> _salvarEstadoDiario() async {
     final prefs = await SharedPreferences.getInstance();
     final hoje = _getDataFormatada(DateTime.now());
 
-    // Coleta as tentativas feitas
+ 
     List<String> tentativasFeitas = [];
     for (int i = 0; i < tentativaAtual; i++) {
       tentativasFeitas.add(grade[i].join());
@@ -177,9 +174,7 @@ class JogoController extends ChangeNotifier {
       venceu = true;
       jogoTerminou = true;
       
-      // *** MUDANÇA PRINCIPAL AQUI ***
-      // Ao vencer, atualiza a grelha com a palavra original (com acentos)
-      // para fornecer o feedback visual correto.
+  
       final letrasOriginais = palavraSecretaOriginal.split('');
       for (int i = 0; i < tamanhoPalavra; i++) {
         grade[tentativaAtual][i] = letrasOriginais[i];
@@ -188,7 +183,6 @@ class JogoController extends ChangeNotifier {
       jogoTerminou = true;
     }
 
-    // Ação de salvar acontece aqui, quando o jogo termina
     if (jogoTerminou && isModoDiario && salvarEstado) {
       _salvarEstadoDiario();
     }
