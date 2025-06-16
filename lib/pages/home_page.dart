@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Letra a Letra',
+                    'LETRA A LETRA',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                       fontSize: 48,

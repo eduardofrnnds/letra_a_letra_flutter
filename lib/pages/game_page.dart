@@ -151,7 +151,7 @@ class __GameViewState extends State<_GameView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.isModoDiario ? 'PALAVRA DO DIA' : 'Modo Treinamento'),
+        title: Text(controller.isModoDiario ? 'PALAVRA DO DIA' : 'PRATICAR'),
         actions: [
           if (!controller.jogoTerminou)
             IconButton(

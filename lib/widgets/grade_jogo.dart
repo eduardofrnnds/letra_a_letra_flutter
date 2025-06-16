@@ -6,12 +6,10 @@ import '../controllers/jogo_controller.dart';
 import 'package:provider/provider.dart';
 
 class GradeJogo extends StatelessWidget {
-  // CORREÇÃO: Utilizando a sintaxe moderna 'super.key'
   const GradeJogo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Consome o JogoController para aceder ao estado
     final controller = context.watch<JogoController>();
 
     return LayoutBuilder(
@@ -37,6 +35,16 @@ class GradeJogo extends StatelessWidget {
                 final coluna = index % 5;
                 final isLinhaAtual = linha == controller.tentativaAtual;
                 
+                String letra = '';
+                EstadoLetra estado = EstadoLetra.inicial;
+
+                if (isLinhaAtual) {
+                  letra = controller.palpiteAtualList[coluna];
+                } else if (controller.tentativas[linha] != null) {
+                  letra = controller.tentativas[linha]!.palavra.split('')[coluna];
+                  estado = controller.tentativas[linha]!.estados[coluna];
+                }
+
                 return GestureDetector(
                   onTap: () {
                     if (isLinhaAtual) {
@@ -44,8 +52,8 @@ class GradeJogo extends StatelessWidget {
                     }
                   },
                   child: CaixaLetra(
-                    letra: controller.grade[linha][coluna],
-                    estado: controller.estadosGrade[linha][coluna],
+                    letra: letra,
+                    estado: estado,
                     foiSubmetida: linha < controller.tentativaAtual,
                     isSelecionada: isLinhaAtual && coluna == controller.colunaSelecionada,
                     animationDelay: Duration(milliseconds: coluna * 100),
@@ -60,6 +68,7 @@ class GradeJogo extends StatelessWidget {
   }
 }
 
+// O widget CaixaLetra permanece o mesmo, sem alterações necessárias.
 class CaixaLetra extends StatefulWidget {
   final String letra;
   final EstadoLetra estado;
@@ -67,7 +76,6 @@ class CaixaLetra extends StatefulWidget {
   final bool isSelecionada;
   final Duration animationDelay;
 
-  // CORREÇÃO: Utilizando a sintaxe moderna 'super.key'
   const CaixaLetra({
     super.key,
     required this.letra,
@@ -109,7 +117,6 @@ class _CaixaLetraState extends State<CaixaLetra> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -125,30 +132,28 @@ class _CaixaLetraState extends State<CaixaLetra> with SingleTickerProviderStateM
           switch (widget.estado) {
             case EstadoLetra.correto:
               corFundo = AppColors.success;
-              corTexto = Colors.white;
               break;
             case EstadoLetra.corretoRepetido:
               corFundo = AppColors.repeatedSuccess;
-              corTexto = Colors.white;
               break;
             case EstadoLetra.posicaoErrada:
               corFundo = AppColors.warning;
-              corTexto = Colors.white;
+              break;
+            case EstadoLetra.posicaoErradaRepetida:
+              corFundo = AppColors.repeatedWarning;
               break;
             default:
               corFundo = AppColors.neutral;
-              corTexto = Colors.white;
           }
           corBorda = corFundo;
+          corTexto = Colors.white;
         } else {
           corFundo = Colors.transparent;
           corBorda = colors.outline;
           corTexto = colors.onSurface;
         }
 
-        if (widget.isSelecionada) {
-          corBorda = colors.secondary;
-        }
+        if (widget.isSelecionada) corBorda = colors.secondary;
 
         return Transform(
           transform: transform,
@@ -157,28 +162,15 @@ class _CaixaLetraState extends State<CaixaLetra> with SingleTickerProviderStateM
             duration: const Duration(milliseconds: 200),
             decoration: BoxDecoration(
               color: corFundo,
-              border: Border.all(
-                color: corBorda,
-                width: widget.isSelecionada ? 3.0 : 2.0,
-              ),
+              border: Border.all(color: corBorda, width: widget.isSelecionada ? 3.0 : 2.0,),
               borderRadius: BorderRadius.circular(8),
-              boxShadow: widget.isSelecionada ? [
-                BoxShadow(
-                  // CORREÇÃO: Usando 'withAlpha' em vez de 'withOpacity'
-                  color: colors.secondary.withAlpha(128),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                )
-              ] : [],
+              boxShadow: widget.isSelecionada ? [BoxShadow(color: colors.secondary.withAlpha(128), blurRadius: 5, spreadRadius: 1,)] : [],
             ),
             child: Center(
               child: Transform(
                 transform: Matrix4.identity()..rotateX(isFlipped ? math.pi : 0),
                 alignment: Alignment.center,
-                child: Text(
-                  widget.letra.toUpperCase(),
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: corTexto),
-                ),
+                child: Text(widget.letra.toUpperCase(), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: corTexto),),
               ),
             ),
           ),
