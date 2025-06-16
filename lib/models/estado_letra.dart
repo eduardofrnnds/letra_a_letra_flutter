@@ -1,7 +1,8 @@
 enum EstadoLetra {
-  inicial,        // Estado padrão, antes do palpite
-  correto,        // Letra certa, na posição certa (Verde)
-  corretoRepetido,// Letra repetida certa, na posição certa (Verde Escuro)
-  posicaoErrada,  // Letra certa, na posição errada (Laranja/Amarelo)
-  errado,         // Letra não existe na palavra (Cinza)
+  inicial,                // Padrão
+  errado,                 // Cinza (não existe)
+  posicaoErrada,          // Laranja (existe, lugar errado)
+  posicaoErradaRepetida,  // Laranja Escuro (repetida, lugar errado)
+  correto,                // Verde (correta)
+  corretoRepetido,        // Verde Escuro (repetida, correta)
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../controllers/jogo_controller.dart';
 import '../controllers/theme_controller.dart';
 import 'game_page.dart';
 
@@ -12,6 +13,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Guarda a instância do controller do modo de treino.
+  JogoController? _practiceGameController;
+  
   bool _isVisible = false;
 
   @override
@@ -31,7 +35,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         actions: [
-          // Botão para trocar o tema, agora na AppBar
           IconButton(
             icon: Icon(
               themeController.themeMode == ThemeMode.dark 
@@ -60,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'LETRA A LETRA',
+                    'Letra a Letra',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                       fontSize: 48,
@@ -72,31 +75,44 @@ class _HomePageState extends State<HomePage> {
                   FilledButton.icon(
                     icon: const Icon(Icons.calendar_today),
                     label: const Text('DIÁRIO'),
-                    onPressed: () => _navigateToGame(context, isDaily: true),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const GamePage(isModoDiario: true),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 20),
                   FilledButton.icon(
                     style: FilledButton.styleFrom(
-                      backgroundColor: colors.secondary, // Usando a cor de destaque
+                      backgroundColor: colors.secondary,
                     ),
                     icon: const Icon(Icons.lightbulb_outline),
                     label: const Text('PRATICAR'),
-                    onPressed: () => _navigateToGame(context, isDaily: false),
+                    onPressed: () {
+                      // Lógica para reiniciar o jogo de treino se o anterior terminou.
+                      if (_practiceGameController == null || _practiceGameController!.jogoTerminou) {
+                        _practiceGameController = JogoController(isModoDiario: false)..iniciarJogoTreino();
+                      }
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GamePage(
+                            isModoDiario: false,
+                            practiceController: _practiceGameController,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  void _navigateToGame(BuildContext context, {required bool isDaily}) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => GamePage(isModoDiario: isDaily),
       ),
     );
   }

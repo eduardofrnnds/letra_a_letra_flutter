@@ -8,8 +8,9 @@ class AppColors {
   
   // Cores semânticas para o jogo
   static const success = Color(0xFF4CAF50);
-  static const repeatedSuccess = Color(0xFF1B5E20); // Cor para letras repetidas
+  static const repeatedSuccess = Color(0xFF1B5E20);   // Verde Escuro
   static const warning = Color(0xFFFFA000);
+  static const repeatedWarning = Color(0xFFE65100); // NOVO: Laranja Escuro
   static const neutral = Color(0xFF757575);
   
   // Cores de fundo e texto
@@ -21,6 +22,7 @@ class AppColors {
   static const darkText = Color(0xFFE0E0E0);
 }
 
+// O resto da classe AppTheme permanece igual...
 class AppTheme {
   // --- TEMA CLARO ---
   static final lightTheme = ThemeData(
@@ -30,8 +32,8 @@ class AppTheme {
       seedColor: AppColors.primaryGreen,
       brightness: Brightness.light,
       primary: AppColors.primaryGreen,
-      secondary: AppColors.accentOrange,
-      tertiary: AppColors.success,
+      secondary: AppColors.accentOrange, // Cor de destaque para botões
+      tertiary: AppColors.success,      // Cor de sucesso (letra certa)
       surface: AppColors.lightBackground,
       onSurface: AppColors.lightText,
       surfaceContainer: AppColors.lightSurface,

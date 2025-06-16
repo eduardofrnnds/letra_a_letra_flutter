@@ -7,7 +7,6 @@ class TecladoVirtual extends StatelessWidget {
   final VoidCallback onEnterTapped;
   final Map<String, EstadoLetra> estadosTeclado;
   
-  // CORREÇÃO: Usando a sintaxe moderna 'super.key'
   const TecladoVirtual({
     super.key,
     required this.onKeyTapped,
@@ -37,10 +36,17 @@ class TecladoVirtual extends StatelessWidget {
               if (key == '⌫') {
                 return BotaoTeclado.special(onTap: onBackspaceTapped, icon: Icons.backspace_outlined);
               }
+
+              final estado = estadosTeclado[key] ?? EstadoLetra.inicial;
+
+              if (estado == EstadoLetra.errado) {
+                return const Expanded(flex: 2, child: SizedBox());
+              }
+
               return BotaoTeclado(
                 onTap: (letra) => onKeyTapped(letra),
                 letra: key,
-                estado: estadosTeclado[key] ?? EstadoLetra.inicial,
+                estado: estado,
               );
             }).toList(),
           );
@@ -58,23 +64,8 @@ class BotaoTeclado extends StatelessWidget {
   final IconData? icon;
   final Function onTap;
 
-  // CORREÇÃO: Usando a sintaxe moderna 'super.key'
-  const BotaoTeclado({
-    super.key,
-    required this.onTap,
-    required this.letra,
-    this.estado = EstadoLetra.inicial,
-    this.flex = 2,
-  }) : label = null, icon = null;
-
-  // CORREÇÃO: Usando a sintaxe moderna 'super.key'
-  const BotaoTeclado.special({
-    super.key,
-    required this.onTap,
-    this.label,
-    this.icon,
-    this.flex = 3,
-  }) : letra = null, estado = null;
+  const BotaoTeclado({ super.key, required this.onTap, required this.letra, this.estado = EstadoLetra.inicial, this.flex = 2,}) : label = null, icon = null;
+  const BotaoTeclado.special({ super.key, required this.onTap, this.label, this.icon, this.flex = 3,}) : letra = null, estado = null;
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +81,9 @@ class BotaoTeclado extends StatelessWidget {
           corTexto = colors.onTertiary;
           break;
         case EstadoLetra.posicaoErrada:
+        case EstadoLetra.posicaoErradaRepetida: // NOVO
           corFundo = colors.secondary;
           corTexto = colors.onSecondary;
-          break;
-        case EstadoLetra.errado:
-          corFundo = colors.outline;
-          corTexto = colors.onSurface;
           break;
         default: 
           corFundo = colors.surfaceContainerHighest;
@@ -132,14 +120,10 @@ class BotaoTeclado extends StatelessWidget {
       ),
     );
   }
-
+  
   Widget _buildChild(Color color) {
-    if (label != null) {
-      return Text(label!, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color));
-    }
-    if (icon != null) {
-      return Icon(icon, size: 24, color: color);
-    }
+    if (label != null) return Text(label!, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color));
+    if (icon != null) return Icon(icon, size: 24, color: color);
     return Text(letra!, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color));
   }
 }
