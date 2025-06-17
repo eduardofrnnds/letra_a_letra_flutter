@@ -32,24 +32,6 @@ google_fonts: Para uma tipografia elegante e legível.
 
 Arquitetura Limpa: O código foi organizado separando a UI (Páginas e Widgets), a lógica de negócio (Controllers) e os dados (Repositório).
 
-🚀 Como Executar o Projeto
-Para executar este projeto localmente, siga os passos abaixo:
-
-Clone o repositório:
-
-git clone https://github.com/SEU_NOME_DE_UTILIZADOR/letra_a_letra_flutter.git
-
-Navegue para a pasta do projeto:
-
-cd letra_a_letra_flutter
-
-Instale as dependências:
-
-flutter pub get
-
-Execute a aplicação:
-
-flutter run
 
 📁 Estrutura de Pastas
 O código fonte está organizado da seguinte forma para facilitar a manutenção e escalabilidade:
