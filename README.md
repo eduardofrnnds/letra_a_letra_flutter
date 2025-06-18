@@ -1,4 +1,5 @@
-Como Funciona o Jogo
+Como Funciona o Jogo:
+
 O "Letra a Letra" é um jogo de adivinhação de palavras onde o objetivo é descobrir uma palavra secreta de cinco letras em até seis tentativas.
 
 A cada tentativa, o jogador insere uma palavra, e o jogo fornece um feedback visual sobre cada letra, usando um sistema de cores:
