@@ -1,62 +1,29 @@
-Letra a Letra
+Como Funciona o Jogo
+O "Letra a Letra" é um jogo de adivinhação de palavras onde o objetivo é descobrir uma palavra secreta de cinco letras em até seis tentativas.
 
-Um elegante e viciante jogo de adivinhar palavras, inspirado em sucessos como Wordle e Termo, construído com Flutter. Desafie a sua mente todos os dias com uma nova palavra ou pratique sem limites no modo de treinamento.
+A cada tentativa, o jogador insere uma palavra, e o jogo fornece um feedback visual sobre cada letra, usando um sistema de cores:
 
-✨ Funcionalidades
-O "Letra a Letra" foi desenhado com uma interface limpa e uma experiência de utilizador focada.
+Verde: A letra está correta e na posição certa.
+Amarelo/Laranja: A letra existe na palavra, mas está na posição errada.
+Cinzento: A letra não faz parte da palavra secreta.
+Com base nestas dicas, o jogador deduz qual é a palavra correta antes que as suas tentativas acabem.
 
-Modo Diário: Um único desafio por dia com uma palavra sincronizada para todos os jogadores. O seu progresso fica guardado, impedindo que jogue mais de uma vez.
+Funcionalidades Principais
+Seu jogo já tem funcionalidades excelentes e bem implementadas:
 
-Modo Treinamento: Jogue quantas vezes quiser com palavras aleatórias para aprimorar as suas habilidades.
+Dois Modos de Jogo:
 
-Persistência Local: O seu jogo diário é guardado. Se fechar a aplicação, pode voltar mais tarde no mesmo dia e continuar de onde parou ou ver o seu resultado final.
+Modo Diário: Oferece um desafio único por dia, com a mesma palavra para todos os jogadores. O progresso é guardado, permitindo que o jogador continue mais tarde se fechar a aplicação
 
-Feedback Visual Claro: O sistema de cores clássico (verde, amarelo e cinzento) indica o quão perto está de acertar a palavra.
+Modo Praticar: Permite jogar vezes ilimitadas com palavras aleatórias, ideal para treinar
 
-Teclado Inteligente: O teclado virtual atualiza as suas cores para o ajudar a eliminar letras e a pensar na próxima jogada.
+Teclado Inteligente: O teclado virtual no ecrã muda de cor à medida que o jogador descobre o estado das letras, servindo como um guia visual para as próximas tentativas
 
-Suporte a Acentos: O jogo valida palavras com e sem acentos de forma inteligente, mas exibe sempre a forma ortográfica correta.
+Suporte a Acentos: O jogo aceita palavras com e sem acentos de forma inteligente. A validação é feita com a palavra "normalizada".
 
-Design Responsivo com Tema Escuro/Claro: Uma interface moderna que se adapta ao seu dispositivo e às suas preferências de tema.
+Temas Claro e Escuro: O jogo adapta-se às preferências do sistema do utilizador, oferecendo uma experiência visual confortável tanto em ambientes claros como escuros
 
-🛠️ Tecnologias Utilizadas
-Este projeto foi construído utilizando tecnologias modernas para criar uma experiência fluida e de alta qualidade:
-
-Flutter: Framework principal para a construção da interface de utilizador multiplataforma.
-
-Dart: Linguagem de programação base do Flutter.
-
-shared_preferences: Para persistência de dados locais, guardando o estado do jogo diário.
-
-google_fonts: Para uma tipografia elegante e legível.
-
-Arquitetura Limpa: O código foi organizado separando a UI (Páginas e Widgets), a lógica de negócio (Controllers) e os dados (Repositório).
-
-
-📁 Estrutura de Pastas
-O código fonte está organizado da seguinte forma para facilitar a manutenção e escalabilidade:
-
-lib/
-├── config/
-│   └── theme/
-│       └── app_theme.dart   # Definição dos temas claro e escuro
-├── controllers/
-│   └── jogo_controller.dart # Lógica principal e estado do jogo
-├── data/
-│   └── word_repository.dart # Carregamento das palavras do JSON
-├── models/
-│   └── estado_letra.dart    # Enum para o estado das letras
-├── pages/
-│   ├── game_page.dart       # Tela principal do jogo
-│   └── home_page.dart       # Tela inicial
-├── utils/
-│   └── string_normalizer.dart # Função para remover acentos
-├── widgets/
-│   ├── grade_jogo.dart      # Widget da grelha de letras
-│   └── teclado_virtual.dart # Widget do teclado
-├── app.dart                 # Configuração do MaterialApp
-└── main.dart                # Ponto de entrada da aplicação
-
+Persistência de Dados: Utiliza o pacote shared_preferences para guardar o estado do jogo diário, garantindo que o jogador não perca o seu progresso nem possa jogar mais de uma vez por dia.
 👤 Autor
 Eduardo Fernandes
 
