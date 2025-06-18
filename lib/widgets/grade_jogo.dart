@@ -1,3 +1,5 @@
+// lib/widgets/grade_jogo.dart
+
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../config/theme/app_theme.dart';
@@ -40,9 +42,17 @@ class GradeJogo extends StatelessWidget {
 
                 if (isLinhaAtual) {
                   letra = controller.palpiteAtualList[coluna];
-                } else if (controller.tentativas[linha] != null) {
-                  letra = controller.tentativas[linha]!.palavra.split('')[coluna];
-                  estado = controller.tentativas[linha]!.estados[coluna];
+                } else {
+                  // --- CORREÇÃO APLICADA AQUI ---
+                  // 1. Criamos uma variável local para a tentativa.
+                  final tentativa = controller.tentativas[linha];
+                  
+                  // 2. Verificamos se a variável não é nula.
+                  if (tentativa != null) {
+                    // 3. Acessamos as propriedades com segurança.
+                    letra = tentativa.palavra.split('')[coluna];
+                    estado = tentativa.estados[coluna];
+                  }
                 }
 
                 return GestureDetector(
@@ -68,7 +78,7 @@ class GradeJogo extends StatelessWidget {
   }
 }
 
-// O widget CaixaLetra permanece o mesmo, sem alterações necessárias.
+// O resto do arquivo (widget CaixaLetra) permanece o mesmo.
 class CaixaLetra extends StatefulWidget {
   final String letra;
   final EstadoLetra estado;

@@ -14,7 +14,7 @@ class WordleApp extends StatelessWidget {
     final themeController = context.watch<ThemeController>();
 
     return MaterialApp(
-      title: 'Letra a Letra',
+      title: 'LETRA A LETRA',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeController.themeMode,
